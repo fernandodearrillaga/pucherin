@@ -4,6 +4,7 @@ let turno =1;
 let dados =[{valor: 1}, {valor: 1}];
 let arrJugadores=["0"];
 window.onload = function(){
+    escribirJugadores();
     document.getElementById('tirar').onclick = tirarDados;
 
 }
@@ -19,6 +20,15 @@ function crearJugador(){
                  fichasGanadas: 0
                 };
     arrJugadores.push(jugador);
+    
+    
+}
+function escribirJugadores() {
+    
+    const escribirJugadores = document.getElementById('jugadores');
+    for (let i=1; i<=jugadores; i++){
+        escribirJugadores.innerText +="\n Jugador "+ i;
+    }
     
 }
 
@@ -47,3 +57,4 @@ function tirarDados(){
 //console.log(dados[0].valor+dados[1].valor);
 console.log(jugadores);
 console.log(arrJugadores);
+//escribirJugadores();
