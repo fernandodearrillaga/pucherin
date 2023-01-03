@@ -26,11 +26,22 @@ function crearJugador(){
 function escribirJugadores() {
     
     const escribirJugadores = document.getElementById('jugadores');
+    escribirJugadores.innerText="";
     for (let i=1; i<=jugadores; i++){
-        escribirJugadores.innerText +="\n Jugador "+ i;
+        escribirJugadores.innerText +="\n Jugador " + i + "\n Fichas ganadas: " + arrJugadores[i].fichasGanadas + "\n Fichas restantes: "  + arrJugadores[i].fichasRestantes;
     }
     
 }
+
+/*function actualizarJugadores() {
+    
+    const actualizarJugadores = document.getElementById('jugadores');
+    console.log(actualizarJugadores);
+    for (let i=1; i<=jugadores; i++){
+        actualizarJugadores.innerText ="\n Jugador " + i + "\n Fichas ganadas: " + arrJugadores[i].fichasGanadas + "\n Fichas restantes: "  + arrJugadores[i].fichasRestantes;
+    }
+    
+}*/
 
 function tirarDados(){
     dados[0].valor=Math.floor(Math.random()*6+1);
@@ -43,6 +54,8 @@ function tirarDados(){
     const textoTurno = document.getElementById('turno');
     
     textoTurno.innerText= "Turno del jugador " + turno;
+    arrJugadores[turno].fichasRestantes--;
+    escribirJugadores();
     turno++;
     if (turno>jugadores){
         turno=1;
