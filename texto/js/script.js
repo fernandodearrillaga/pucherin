@@ -90,7 +90,12 @@ function tirarDados(){
     console.log(dados[0].valor+dados[1].valor);
     const dado = document.getElementById('dados');
     dado.innerText ="Dados: "+ dados[0].valor + " + " + dados[1].valor + " = " +  suma;
-    addFicha(suma);
+    /*if(arrJugadores[turno].fichasRestantes>0){
+        addFicha(suma);
+    }else{
+        final(suma);
+    }*/
+    
 
 
     
@@ -98,7 +103,10 @@ function tirarDados(){
     
     textoTurno.innerText= "Turno del jugador " + turno;
     if (arrJugadores[turno].fichasRestantes!==0){
+        addFicha(suma);
         arrJugadores[turno].fichasRestantes--;
+    }else{
+        final(suma);
     }
     
     escribirJugadores();
@@ -118,7 +126,7 @@ function addFicha(suma){
         }
         //console.log(arrCasillas[i].contenido,arrCasillas[i].capacidad)
         if (arrCasillas[i].contenido==arrCasillas[i].capacidad){
-            arrJugadores[turno].fichasGanadas=arrCasillas[i].contenido+arrJugadores[turno].fichasGanadas;
+            arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;
             arrCasillas[i].contenido=0;
         }
     }
@@ -127,12 +135,35 @@ function addFicha(suma){
     }
     if (suma==12){
         arrJugadores[turno].fichasRestantes++;
-        arrJugadores[turno].fichasGanadas=puchero.contenido+arrJugadores[turno].fichasGanadas;
+        arrJugadores[turno].fichasGanadas+=puchero.contenido;
         puchero.contenido=0;
     }
     escribirCasillas();
     
 }
+
+function final(suma){
+    for (let i=0;i<arrCasillas.length;i++){
+        
+        if (arrCasillas[i].contenido==arrCasillas[i].capacidad){
+            arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;
+            arrCasillas[i].contenido=0;
+        }
+        if (suma==7){
+            arrJugadores[turno].fichasGanadas+=puchero.contenido;
+            puchero.contenido=0;
+        }
+        if (suma==12){
+            arrJugadores[turno].fichasGanadas+=puchero.contenido;
+            for (j=0;j<arrCasillas.length;j++){
+                arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;
+                arrCasillas[i].contenido=0;
+            }
+        }
+    }
+    escribirCasillas();
+}
+
 
 //tirarDados();
 //console.log(dados[0].valor+dados[1].valor);
