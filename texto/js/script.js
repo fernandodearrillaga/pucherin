@@ -6,21 +6,25 @@ let arrJugadores=["0"];
 let arrCasillas=[]
 let puchero={contenido: 0};
 window.onload = function(){
+    inicio();
     escribirJugadores();
     escribirCasillas();
     document.getElementById('tirar').onclick = tirarDados;
+    document.getElementById('nuevaPartida').onclick = nuevaPartida;
 
 }
-
-while (jugadores>5||jugadores<1) {
-    jugadores=parseInt(prompt("Introducir número de jugadores entre 1 y 5"));
+function inicio() {
+    while (jugadores>5||jugadores<1) {
+        jugadores=parseInt(prompt("Introducir número de jugadores entre 1 y 5"));
+    }
+    for (let i =0; i<jugadores; i++){
+        crearJugador();
+    }
+    
+    
+        crearCasillas();
 }
-for (let i =0; i<jugadores; i++){
-    crearJugador();
-}
 
-
-    crearCasillas();
 
 
 
@@ -149,6 +153,17 @@ function final(suma){
             }
         }
     }
+    escribirCasillas();
+}
+
+function nuevaPartida(){
+    turno =1;
+    jugadores=0;
+    arrJugadores=["0"];
+    arrCasillas=[]
+    puchero={contenido: 0};
+    inicio();
+    escribirJugadores();
     escribirCasillas();
 }
 
