@@ -73,15 +73,7 @@ function escribirCasillas() {
     
 }
 
-/*function actualizarJugadores() {
-    
-    const actualizarJugadores = document.getElementById('jugadores');
-    console.log(actualizarJugadores);
-    for (let i=1; i<=jugadores; i++){
-        actualizarJugadores.innerText ="\n Jugador " + i + "\n Fichas ganadas: " + arrJugadores[i].fichasGanadas + "\n Fichas restantes: "  + arrJugadores[i].fichasRestantes;
-    }
-    
-}*/
+
 
 function tirarDados(){
     dados[0].valor=Math.floor(Math.random()*6+1);
@@ -90,11 +82,7 @@ function tirarDados(){
     console.log(dados[0].valor+dados[1].valor);
     const dado = document.getElementById('dados');
     dado.innerText ="Dados: "+ dados[0].valor + " + " + dados[1].valor + " = " +  suma;
-    /*if(arrJugadores[turno].fichasRestantes>0){
-        addFicha(suma);
-    }else{
-        final(suma);
-    }*/
+
     
 
 
@@ -124,7 +112,7 @@ function addFicha(suma){
         if (arrCasillas[i].capacidad==suma){
             arrCasillas[i].contenido++;
         }
-        //console.log(arrCasillas[i].contenido,arrCasillas[i].capacidad)
+
         if (arrCasillas[i].contenido==arrCasillas[i].capacidad){
             arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;
             arrCasillas[i].contenido=0;
@@ -145,7 +133,7 @@ function addFicha(suma){
 function final(suma){
     for (let i=0;i<arrCasillas.length;i++){
         
-        if (arrCasillas[i].contenido==arrCasillas[i].capacidad){
+        if (suma==arrCasillas[i].capacidad){
             arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;
             arrCasillas[i].contenido=0;
         }
@@ -165,9 +153,8 @@ function final(suma){
 }
 
 
-//tirarDados();
-//console.log(dados[0].valor+dados[1].valor);
+
 console.log(jugadores);
 console.log(arrJugadores);
 console.log(arrCasillas);
-//escribirJugadores();
+
