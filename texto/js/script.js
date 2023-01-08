@@ -5,6 +5,7 @@ let dados =[{valor: 1}, {valor: 1}];
 let arrJugadores=["0"];
 let arrCasillas=[]
 let puchero={contenido: 0};
+let vacio=true;
 window.onload = function(){
     inicio();
     escribirJugadores();
@@ -13,7 +14,9 @@ window.onload = function(){
     document.getElementById('nuevaPartida').onclick = nuevaPartida;
 
 }
-function inicio() {
+function inicio() { //inicializa el juego y pide el número de jugadores
+    document.getElementById("tirar").disabled = false;
+    document.getElementById("nuevaPartida").disabled = true;
     while (jugadores>5||jugadores<1) {
         jugadores=parseInt(prompt("Introducir número de jugadores entre 1 y 5"));
     }
@@ -28,7 +31,7 @@ function inicio() {
 
 
 
-function crearJugador(){
+function crearJugador(){ //crea los objetos de los jugadores y los añade al array
     let jugador={fichasRestantes: parseInt(fichas/jugadores),
                  fichasGanadas: 0
                 };
@@ -36,7 +39,7 @@ function crearJugador(){
     
     
 }
-function escribirJugadores() {
+function escribirJugadores() { //escribe los jugadores en la pantalla
     
     const escribirJugadores = document.getElementById('jugadores');
     escribirJugadores.innerText="Jugadores";
@@ -46,7 +49,7 @@ function escribirJugadores() {
     
 }
 
-function crearCasillas(){
+function crearCasillas(){  //crea los objetos de las casillas y las añade al array
     let casilla;
     for (let i = 2; i <= 11; i++ ){
             casilla={contenido: 0,
@@ -65,7 +68,7 @@ function crearCasillas(){
     
 }
 
-function escribirCasillas() {
+function escribirCasillas() { //escribe las casillas en la pantalla
     
     const escribirCasillas = document.getElementById('casillas');
     escribirCasillas.innerText="Casillas";
@@ -79,7 +82,7 @@ function escribirCasillas() {
 
 
 
-function tirarDados(){
+function tirarDados(){ //acciones que se producen al pulsar el botón "Tirar dados"
     dados[0].valor=Math.floor(Math.random()*6+1);
     dados[1].valor=Math.floor(Math.random()*6+1);
     let suma =dados[0].valor+dados[1].valor;
@@ -111,15 +114,15 @@ function tirarDados(){
     siguiente.innerText= "Tira el jugador " + turno;
 }
 
-function addFicha(suma){
+function addFicha(suma){ //acciones que se producen al añadir una ficha
     for (let i=0;i<arrCasillas.length;i++){
-        if (arrCasillas[i].capacidad==suma){
-            arrCasillas[i].contenido++;
+        if (arrCasillas[i].capacidad==suma){ //si la casilla no se llena
+            arrCasillas[i].contenido++;      //se añade una ficha a la casilla
         }
 
-        if (arrCasillas[i].contenido==arrCasillas[i].capacidad){
-            arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;
-            arrCasillas[i].contenido=0;
+        if (arrCasillas[i].contenido==arrCasillas[i].capacidad){            //si la casilla se llena
+            arrJugadores[turno].fichasGanadas+=arrCasillas[i].contenido;    //se suma el contenido al jugador que la ha llenado
+            arrCasillas[i].contenido=0;                                     //se vacía la casilla
         }
     }
     if (suma==7){
@@ -134,7 +137,7 @@ function addFicha(suma){
     
 }
 
-function final(suma){
+function final(suma){           //acciones que se producen cuando un usuario no tiene fichas
     for (let i=0;i<arrCasillas.length;i++){
         
         if (suma==arrCasillas[i].capacidad){
@@ -154,9 +157,25 @@ function final(suma){
         }
     }
     escribirCasillas();
+    vacioFinal();
 }
 
-function nuevaPartida(){
+function vacioFinal() {     //comprobación de que todas las casillas están vacias al final de la partida
+    vacio=true;
+    for (let i=0;i<arrCasillas.length;i++){
+        if(arrCasillas[i].contenido!=0&&puchero.contenido!=0){
+            vacio=false;
+            
+        }
+    }
+    if (vacio==true){
+        alert("Final de la partida");
+        document.getElementById("tirar").disabled = true;
+        document.getElementById("nuevaPartida").disabled = false;
+    }
+}
+
+function nuevaPartida(){        //inicia una nueva partida
     turno =1;
     jugadores=0;
     arrJugadores=["0"];
@@ -166,6 +185,7 @@ function nuevaPartida(){
     escribirJugadores();
     escribirCasillas();
 }
+
 
 
 
